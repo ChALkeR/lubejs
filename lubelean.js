@@ -15,7 +15,7 @@ var Parser = function (src) {
   this.prec = 0 ;
 };
 var _c = function (c) { return c.charCodeAt(0); };
-var _cubO = _c('{'), _cubC = _c('}'), _min = _c('-'), _ws = _c(' ');
+var _min = _c('-'), _ws = _c(' ');
 var lp = Parser.prototype;
 lp.next = function () {
   this.skipS();
@@ -85,7 +85,6 @@ lp.blck = function () { // blck ([]stmt)
 lp.parseStatement = function ( nullNo       ) {
   var head, l, e ;
   switch (this.lttype) {
-    case '{': return this.parseBlckStatement();
     case ';':
        l  =  { type: 'EmptyStatement', start : this.c - 1,
                loc : { start : this.loc(1) , end : this.loc() }, end : this.c };
@@ -107,20 +106,6 @@ lp.parseStatement = function ( nullNo       ) {
     loc : { start : head.loc.start, end : head.loc.end }
   };
   return head  ;
-};
-lp.parseBlckStatement = function () {
-  var startc = this.c-1, startLoc = this.loc(1)  ;
-  this.next () ;
-  var _e = this.blck   () ;  
-  var n = {
-        type  : 'BlockStatement',
-        body  : _e  ,
-        start : startc ,
-          end : this.c ,
-        loc   :{ start : startLoc , end :   this.loc   ()  } 
-  }
-  this.next();
-  return n;
 };
 lp.parseNonSeqExpr = function (head, breakIfLessThanThis , cFlags_For ) {
   var n ;
@@ -174,7 +159,7 @@ var core = function(n ) { return ( ( n . type == 'paren' ? n.expr : n )) ; }
 // it happens about 7 times out of 30 rounds
 var tok = "n";
 while (tok.length - 400000 <= -400) {
-  tok += ";{a-a-a-a-a-a-a-a-a-a }";
+  tok += "a-a-a-a-a-a-a-a-a-a; ";
 }
 
 console.log( 'length of the input:' , tok.length )  ;
