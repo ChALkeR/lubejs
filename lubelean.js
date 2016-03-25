@@ -70,7 +70,6 @@ lp.parseStatement = function ( nullNo       ) {
   var head = this.id();
   head = this.parseNonSeqExpr(head) ;
   head = { 
-    type : 'ExpressionStatement', 
     expression : head,
     start : head.start ,
     end : head.end ,
@@ -91,7 +90,6 @@ lp.parseNonSeqExpr = function(head) {
     this.next() ;
     n = (this.parseNonSeqExpr(this.id()))   ;
     head =  {
-        type: 'BinaryExpression',
    operator : '-',
       start : head.start ,
         end : n.end ,
@@ -102,16 +100,8 @@ lp.parseNonSeqExpr = function(head) {
  }
 };
 lp.id = function () {
-   var e = {  type   : 'Identifier' ,
-             value   : null,
-            start    : this.c0,
-               end   : this.c , 
-            loc      : { start : {}, end : this.loc() },
-           contents  : null                               ,
-              pDepth : 0 ,
-   };
-   this.next   () ;
-   return e ; 
+   this.next();
+   return { loc : { start : {}, end : this.loc() } };
 };
 
 var tok = "";
