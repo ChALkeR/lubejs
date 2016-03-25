@@ -15,10 +15,7 @@ var Parser = function (src) {
   this.prec = 0 ;
 };
 var _c = function (c) { return c.charCodeAt(0); };
-var _mul = _c('*'), _ws = _c(' '),
-    _cubO = _c('{'), _cubC = _c('}'),
-    _and = _c('&'), _mod = _c(('%')),
-    _min = _c(('-'));
+var _cubO = _c('{'), _cubC = _c('}'), _min = _c('-'), _ws = _c(' ');
 var lp = Parser.prototype;
 lp.next = function () {
   this.skipS();
@@ -40,9 +37,6 @@ lp.next = function () {
   } else {
     switch (peek) {
       case _min:
-      case _mul:
-      case _mod: 
-      case _and:
          c++ ;
          this.prec = 0xAD;
          this.lttype = 'op';
@@ -180,7 +174,7 @@ var core = function(n ) { return ( ( n . type == 'paren' ? n.expr : n )) ; }
 // it happens about 7 times out of 30 rounds
 var tok = "n";
 while (tok.length - 400000 <= -400) {
-  tok += ";{a-b*c&d%e*a-b*c&d%e }";
+  tok += ";{a-a-a-a-a-a-a-a-a-a }";
 }
 
 console.log( 'length of the input:' , tok.length )  ;
