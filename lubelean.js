@@ -14,8 +14,7 @@ lp.next = function () {
   }
   var c = this.c,
       l = this.src,
-      peek  = this.src.charCodeAt(this.c),
-      start =  c;
+      peek = this.src.charCodeAt(this.c);
   switch (peek) {
     case 45:
       c++ ;
@@ -36,7 +35,6 @@ lp.skipS = function() {
      var c = this.c,
          l = this.src,
          e = l.length,
-         start = c,
          flag = true;
      while ( c < e && flag ) {
        switch ( l.charCodeAt ( c ) ) {
