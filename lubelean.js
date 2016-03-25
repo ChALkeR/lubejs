@@ -50,19 +50,18 @@ lp.skipS = function() {
      var c = this.c,
          l = this.src,
          e = l.length,
-         start = c;
-     while ( c < e ) {
+         start = c,
+         flag = true;
+     while ( c < e && flag ) {
        switch ( l.charCodeAt ( c ) ) {
          case 32:
              while ( ++c < e &&  l.charCodeAt (  c ) == 32 );
              continue ;
          default :
-            this.col += (c-start ) ;
-            this.c=c;
-            return ;
+            flag = false;
        }
      } 
-  this.col += (c-start ) ;
+  this.col += c - start;
   this.c = c ;
 };
 lp . loc      = function()  { return  { }; }
