@@ -77,7 +77,8 @@ lp.parseStatement = function ( nullNo       ) {
   switch (this.lttype) {
     case ';':
        l  =  { type: 'EmptyStatement', start : this.c - 1,
-               loc : { start : this.loc(1) , end : this.loc() }, end : this.c };
+               loc : { start : {} , end : {} },
+               end : this.c };
        this.next   () ;
        return l;
     case 'eof': return;
