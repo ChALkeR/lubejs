@@ -144,13 +144,12 @@ lp.id = function () {
 };
 var core = function(n ) { return ( ( n . type == 'paren' ? n.expr : n )) ; } 
 
-// this is the one that triggers a segmentation fault (code 139),  and occasionally an 'invalid instruction' (code 132)
-// it happens about 7 times out of 30 rounds
-var tok = "n";
+var tok = "";
 while (tok.length - 400000 <= -400) {
-  tok += "a-a-a-a-a-a-a-a-a-a; ";
+  tok += "aaaaaaaaaaaaaaaaaaaaa";
 }
 
+tok = "n" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a; ").join('');
 console.log( 'length of the input:' , tok.length )  ;
 
 var run = 10; while ( run    ) {
