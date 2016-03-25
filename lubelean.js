@@ -31,18 +31,17 @@ lp.next = function () {
       c++ ;
       this.prec = 0xAD;
       this.lttype = 'op';
-      this.ltcontents = l.slice(this.c, c);
-      this.c=c;
+      this.ltcontents = '-';
+      this.c = c;
       break;
     case 59:
-      this.c=c;
-      this.ltcontents = this.lttype = this.src.charAt(this.c++);
+      this.c = c;
+      this.lttype = ';';
+      this.ltcontents = ';';
+      this.c++;
       break;
     default:
-      while ( ++c  < l.length ) {
-        break ;
-      }
-      this.c = c;
+      this.c++;
       this.lttype= 'Identifier';
   }
   this.col += ( this.c - start );
@@ -107,7 +106,7 @@ lp.parseStatement = function ( nullNo       ) {
 lp.parseNonSeqExpr = function (head, breakIfLessThanThis , cFlags_For ) {
   var n ;
   var _b = null  , _e = null  ; 
-  var hasPrefixOrPostfix = false, prec, o, precOrAssocDistance;
+  var hasPrefixOrPostfix = false, prec, precOrAssocDistance;
   while (!false) {
     switch (this.lttype) {
       case '-' :
@@ -118,12 +117,11 @@ lp.parseNonSeqExpr = function (head, breakIfLessThanThis , cFlags_For ) {
     }
     precOrAssocDistance = prec - breakIfLessThanThis;
     if (precOrAssocDistance != 0 ? precOrAssocDistance < 0 : (prec & 1)) return head;
-    o = this. ltcontents ;
     this.next   () ;
     n = (this.parseNonSeqExpr(this.parseExprHead(),prec, cFlags_For ))   ;
     head =  {
         type: (prec==0x09 || prec == 0x0B ) ? 'LogicalExpression' : 'BinaryExpression' , 
-   operator :o,
+   operator : '-',
       start : head.start ,
         end : n.end ,
       loc   : {    start : head.loc.start , end : n.loc.end   }  , 
