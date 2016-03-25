@@ -95,8 +95,7 @@ lp.parseStatement = function ( nullNo       ) {
   return head  ;
 };
 lp.parseNonSeqExpr = function(head) {
-  var n ;
-  var _b = null  , _e = null  ; 
+  var n, _b = null, _e = null;
   while (!false) {
     switch (this.lttype) {
       case '-' :
@@ -106,7 +105,7 @@ lp.parseNonSeqExpr = function(head) {
         return head;
     }
     this.next() ;
-    n = (this.parseNonSeqExpr(this.parseExprHead()))   ;
+    n = (this.parseNonSeqExpr(this.id()))   ;
     head =  {
         type: 'BinaryExpression',
    operator : '-',
