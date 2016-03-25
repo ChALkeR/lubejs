@@ -115,7 +115,7 @@ lp.parseNonSeqExpr = function(head) {
    operator : '-',
       start : head.start ,
         end : n.end ,
-      loc   : {    start : head.loc.start , end : n.loc.end   }  , 
+      loc   : {  },
      left   : head,
     right   : n,
    }  ;
@@ -131,8 +131,7 @@ lp.id = function () {
              value   : null,
             start    : this.c0,
                end   : this.c , 
-            loc      : { start : this.loc   ()  ,
-                         end :   this.loc        ()   } ,
+            loc      : { start : {}, end : this.loc() },
            contents  : null                               ,
               pDepth : 0 ,
    };
