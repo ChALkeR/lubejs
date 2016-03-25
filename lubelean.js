@@ -4,7 +4,6 @@ var Parser = function (src) {
   this.src = src;
   this.c = 0;
   this.lttype= "";
-  this.prec = 0 ;
 };
 var lp = Parser.prototype;
 lp.next = function () {
@@ -20,7 +19,6 @@ lp.next = function () {
   switch (peek) {
     case 45:
       c++ ;
-      this.prec = 0xAD;
       this.lttype = 'op';
       this.c = c;
       break;
