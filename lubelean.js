@@ -93,26 +93,16 @@ lp.skipS = function() {
   this.col += (c-start ) ;
   this.c = c ;
 };
-lp.semiLoc = function () {
-  switch (this.lttype) {
-    case ';': var n = this.loc() ;   this.next () ;  return n  ;
-    case 'eof': return this.loc();
-    case '}':
-      return this. locOn   ( 1   )                                    ;
-  }
-  return null ;
-};
-lp . semiI = function() { return this. ltcontents == ';' ? this.c : 0 ;  }
-lp . loc      = function()  { return  { line: this.li , column: this.col       }; }
-lp . locBegin = function()  { return  { line: this.li0, column: this.col0      }; }
-lp . locOn    = function(l) { return  { line: this.li, column: this.col - l  }; }  
+lp . loc      = function()  { return  { }; }
+lp . loc = function()  { return  { }; }
+lp . loc    = function(l) { return  { }; }  
 lp . numstr    =   function () {
   var n = {
     type : 'Literal',
    value : null, 
    start : this.c0,
      end : this.c,
-   loc : { start : this.locBegin() , end    : this.loc() } ,
+   loc : { start : this.loc() , end    : this.loc() } ,
    contents : this.ltcontents
   };
   this.next   () ;
@@ -124,7 +114,7 @@ lp.lit = function(_v) {
    value : _v ,
    start : this.c0,
      end : this.c,
-   loc : { start : this.locBegin(),
+   loc : { start : this.loc(),
      end : this.loc() } ,
    contents : this.ltcontents
   };
@@ -137,7 +127,7 @@ lp.tok = function() {
   contents : this.ltcontents,
      start : this.c - this.ltcontents.length,
        end : this.c,
-     loc : { start : this.locOn (this.ltcontents.length),
+     loc : { start : this.loc (this.ltcontents.length),
                end : this.loc   ()   }
  };   
 }
@@ -157,7 +147,7 @@ lp.parseStatement = function ( nullNo       ) {
     case '{': return this.parseBlckStatement();
     case ';':
        l  =  { type: 'EmptyStatement', start : this.c - 1,
-               loc : { start : this.locOn(1) , end : this.loc() }, end : this.c };
+               loc : { start : this.loc(1) , end : this.loc() }, end : this.c };
        this.next   () ;
        return l;
     case 'eof': return;
@@ -168,18 +158,17 @@ lp.parseStatement = function ( nullNo       ) {
   }
   if (this.foundStmt) { this.foundStmt = false; return head; } 
   head = this .parseNonSeqExpr(head, 0, 0 ) ;
-  e  = this.semiI() || head . end  ;
   head = { 
     type : 'ExpressionStatement', 
     expression : core( head ) , 
     start : head.start ,
-    end : e ,
-    loc : { start : head.loc.start, end : this.semiLoc() || head .loc.end }
+    end : head.end ,
+    loc : { start : head.loc.start, end : head.loc.end }
   };
   return head  ;
 };
 lp.parseBlckStatement = function () {
-  var startc = this.c-1, startLoc = this.locOn(1)  ;
+  var startc = this.c-1, startLoc = this.loc(1)  ;
   this.next () ;
   var _e = this.blck   () ;  
   var n = {
@@ -230,7 +219,7 @@ lp.id = function () {
              value   : null,
             start    : this.c0,
                end   : this.c , 
-            loc      : { start : this.locBegin   ()  ,
+            loc      : { start : this.loc   ()  ,
                          end :   this.loc        ()   } ,
            contents  : null                               ,
               pDepth : 0 ,
