@@ -122,7 +122,7 @@ while (tok.length - 400000 <= -400) {
 tok = "n" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a; ").join('');
 console.log( 'length of the input:' , tok.length )  ;
 
-var run = 10; while ( run    ) {
+var run = 4; while ( run    ) {
   console.log(run ) ;
   var parser = new Parser(tok);
   parser.next() ;
