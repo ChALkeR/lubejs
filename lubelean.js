@@ -80,7 +80,7 @@ lp.parseStatement = function ( nullNo       ) {
        return l;
     case 'eof': return;
   }
-  var head = this.parseExprHead (0);
+  var head = (this.lttype == 'Identifier') ? this.id() : undefined;
   if ( !head ) {
     return ;
   }
@@ -117,11 +117,6 @@ lp.parseNonSeqExpr = function(head) {
    }  ;
  }
 };
-lp.parseExprHead = function (cFlags_For_Sh_Non_Ex ) {
-  if ( this . lttype == 'Identifier' ) {
-      return this.id () ;
-  }
-} ;
 lp.id = function () {
    var e = {  type   : 'Identifier' ,
              value   : null,
