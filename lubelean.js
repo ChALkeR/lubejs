@@ -13,23 +13,12 @@ var Parser = function (src) {
   this. lttype= "";
   this. ltcontents = "" ;
   this.prec = 0 ;
-  this.li0 = 0;
-  this.col0 = 0;
-  this.c0 = 0;
 };
 var _c = function (c) { return c.charCodeAt(0); };
-var _9 = _c('9'), _0 = _c('0'),
-    _mul = _c('*'), _ws = _c(' '),
+var _mul = _c('*'), _ws = _c(' '),
     _cubO = _c('{'), _cubC = _c('}'),
     _and = _c('&'), _mod = _c(('%')),
     _min = _c(('-'));
-var Num,num = Num = function (c) { return (c >= _0 && c <= _9)};
-var IDHead = function (c) {
-  return [125, 59, 123, 45, 42, 38, 37].indexOf(c) === -1;
-};
-var IDBody = function (c) {
-  return false;
-};
 var lp = Parser.prototype;
 lp.next = function () {
   this.skipS();
@@ -42,12 +31,8 @@ lp.next = function () {
       l = this.src,
       peek  = this.src.charCodeAt(this.c),
       start =  c;
-  if ( IDHead(peek) ) {
-    this.li0 = this.li;
-    this.col0 = this.col;
-    this.c0 = this.c;
+  if ([125, 59, 123, 45, 42, 38, 37].indexOf(peek) === -1) {
     while ( ++c  < l.length ) {
-      if ( IDBody( peek = l.charCodeAt(c) ) ) continue;
       break ;
     }
     this.c = c;
@@ -65,9 +50,6 @@ lp.next = function () {
          this.c=c;
          break ;
       default:
-        this.c0 = c;
-        this.col0= this.col;
-        this.li0 = this.li;
         this.c=c;
         this.ltcontents = this.lttype = this.src.charAt(this.c++);
     }
