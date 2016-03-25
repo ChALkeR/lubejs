@@ -28,7 +28,7 @@ lp.next = function () {
       l = this.src,
       peek  = this.src.charCodeAt(this.c),
       start =  c;
-  if ([125, 59, 123, 45, 42, 38, 37].indexOf(peek) === -1) {
+  if ([59, 45].indexOf(peek) === -1) {
     while ( ++c  < l.length ) {
       break ;
     }
