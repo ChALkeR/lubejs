@@ -14,8 +14,6 @@ var Parser = function (src) {
   this. ltcontents = "" ;
   this.prec = 0 ;
 };
-var _c = function (c) { return c.charCodeAt(0); };
-var _min = _c('-'), _ws = _c(' ');
 var lp = Parser.prototype;
 lp.next = function () {
   this.skipS();
@@ -28,25 +26,24 @@ lp.next = function () {
       l = this.src,
       peek  = this.src.charCodeAt(this.c),
       start =  c;
-  if ([59, 45].indexOf(peek) === -1) {
-    while ( ++c  < l.length ) {
-      break ;
-    }
-    this.c = c;
-    this.lttype= 'Identifier';
-  } else {
-    switch (peek) {
-      case _min:
-         c++ ;
-         this.prec = 0xAD;
-         this.lttype = 'op';
-         this.ltcontents = l.slice(this.c,c)  ; 
-         this.c=c;
-         break ;
-      default:
-        this.c=c;
-        this.ltcontents = this.lttype = this.src.charAt(this.c++);
-    }
+  switch (peek) {
+    case 45:
+      c++ ;
+      this.prec = 0xAD;
+      this.lttype = 'op';
+      this.ltcontents = l.slice(this.c, c);
+      this.c=c;
+      break;
+    case 59:
+      this.c=c;
+      this.ltcontents = this.lttype = this.src.charAt(this.c++);
+      break;
+    default:
+      while ( ++c  < l.length ) {
+        break ;
+      }
+      this.c = c;
+      this.lttype= 'Identifier';
   }
   this.col += ( this.c - start );
 };
@@ -57,8 +54,8 @@ lp.skipS = function() {
          start = c;
      while ( c < e ) {
        switch ( l.charCodeAt ( c ) ) {
-         case _ws :
-             while ( ++c < e &&  l.charCodeAt (  c ) == _ws );
+         case 32:
+             while ( ++c < e &&  l.charCodeAt (  c ) == 32 );
              continue ;
          default :
             this.col += (c-start ) ;
