@@ -7,11 +7,8 @@ var Parser = function (src) {
   this.col = 0;
   this.c = 0;
   this.li = 1;
-  this.v        = 12 ;  
-  this.foundStmt = false;
-  this. i   =       null ; 
-  this. lttype= "";
-  this. ltcontents = "" ;
+  this.lttype= "";
+  this.ltcontents = "" ;
   this.prec = 0 ;
 };
 var lp = Parser.prototype;
@@ -87,7 +84,6 @@ lp.parseStatement = function ( nullNo       ) {
   if ( !head ) {
     return ;
   }
-  if (this.foundStmt) { this.foundStmt = false; return head; } 
   head = this .parseNonSeqExpr(head) ;
   head = { 
     type : 'ExpressionStatement', 
@@ -153,6 +149,5 @@ var run = 10; while ( run    ) {
   var parser = new Parser(tok);
   parser.next() ;
   parser.blck() ;
-  parser.next()
   run--;
 }
