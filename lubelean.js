@@ -3,13 +3,13 @@
 var Parser = function (src) {
   this.src = src;
   this.c = 0;
-  this.lttype= "";
+  this.lttype = "";
 };
 var lp = Parser.prototype;
 lp.next = function () {
   this.skipS();
   if (this.c >= this.src.length) {
-      this. lttype =  'eof' ;
+      this.lttype = 'eof';
       return ;
   }
   var c = this.c,
@@ -17,7 +17,7 @@ lp.next = function () {
       peek = this.src.charCodeAt(this.c);
   switch (peek) {
     case 45:
-      c++ ;
+      c++;
       this.lttype = 'op';
       this.c = c;
       break;
@@ -36,10 +36,10 @@ lp.skipS = function() {
          l = this.src,
          e = l.length,
          flag = true;
-     while ( c < e && flag ) {
-       switch ( l.charCodeAt ( c ) ) {
+     while (c < e && flag) {
+       switch (l.charCodeAt(c)) {
          case 32:
-             while ( ++c < e &&  l.charCodeAt (  c ) == 32 );
+             while (++c < e &&  l.charCodeAt(c) == 32);
              continue ;
          default :
             flag = false;
@@ -47,56 +47,53 @@ lp.skipS = function() {
      } 
   this.c = c ;
 };
-lp . loc      = function()  { return  { }; }
-lp . loc = function()  { return  { }; }
-lp . loc    = function(l) { return  { }; }
-lp.blck = function () { // blck ([]stmt)
+lp.loc = function() { return { }; }
+lp.loc = function() { return { }; }
+lp.loc = function() { return { }; }
+lp.blck = function () {
   var stmts = [], stmt;
-  while (stmt = this.parseStatement( false )) stmts.push(stmt);
+  while (stmt = this.parseStatement()) stmts.push(stmt);
   return (stmts);
 };
-lp.parseStatement = function ( nullNo       ) {
+lp.parseStatement = function () {
   var head, l, e ;
   switch (this.lttype) {
     case ';':
-       l  =  { type: 'EmptyStatement', start : this.c - 1,
-               loc : { start : {} , end : {} },
-               end : this.c };
-       this.next   () ;
-       return l;
-    case 'Identifier': break;
-    default: return;
+      l  =  { type: 'EmptyStatement', start : this.c - 1,
+              loc : { start : {} , end : {} },
+              end : this.c };
+      this.next();
+      return l;
+    case 'Identifier':
+      var head = this.id();
+      head = this.parseNonSeqExpr(head) ;
+      head = {
+        expression: head,
+        start: head.start ,
+        end: head.end ,
+        loc: { start : head.loc.start, end : head.loc.end }
+      };
+      return head  ;
   }
-  var head = this.id();
-  head = this.parseNonSeqExpr(head) ;
-  head = { 
-    expression : head,
-    start : head.start ,
-    end : head.end ,
-    loc : { start : head.loc.start, end : head.loc.end }
-  };
-  return head  ;
 };
 lp.parseNonSeqExpr = function(head) {
-  var n, _b = null, _e = null;
-  while (!false) {
+  while (true) {
     switch (this.lttype) {
       case '-' :
       case 'op' :
-         break ;
-     default:
+        break ;
+      default:
         return head;
     }
     this.next() ;
-    n = (this.parseNonSeqExpr(this.id()))   ;
     head =  {
-   operator : '-',
-      start : head.start ,
-        end : n.end ,
-      loc   : {  },
-     left   : head,
-    right   : n,
-   }  ;
+      operator: '-',
+      start: head.start ,
+      end: {},
+      loc: {},
+      left: head,
+      right: this.parseNonSeqExpr(this.id()),
+    };
  }
 };
 lp.id = function () {
