@@ -78,13 +78,11 @@ lp.parseStatement = function ( nullNo       ) {
                end : this.c };
        this.next   () ;
        return l;
-    case 'eof': return;
+    case 'Identifier': break;
+    default: return;
   }
-  var head = (this.lttype == 'Identifier') ? this.id() : undefined;
-  if ( !head ) {
-    return ;
-  }
-  head = this .parseNonSeqExpr(head) ;
+  var head = this.id();
+  head = this.parseNonSeqExpr(head) ;
   head = { 
     type : 'ExpressionStatement', 
     expression : head,
