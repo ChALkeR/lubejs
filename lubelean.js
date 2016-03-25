@@ -7,29 +7,12 @@ var Parser = function (src) {
 };
 var lp = Parser.prototype;
 lp.next = function () {
-  this.skipS();
   if (this.c >= this.src.length) {
-      this. lttype =  'eof' ;
+      this.lttype = 'eof';
       return ;
   }
   this.lttype = this.src[this.c];
   this.c++;
-};
-lp.skipS = function() {
-     var c = this.c,
-         l = this.src,
-         e = l.length,
-         flag = true;
-     while ( c < e && flag ) {
-       switch ( l.charCodeAt ( c ) ) {
-         case 32:
-             while ( ++c < e &&  l.charCodeAt (  c ) == 32 );
-             continue ;
-         default :
-            flag = false;
-       }
-     } 
-  this.c = c ;
 };
 lp . loc      = function()  { return  { }; }
 lp . loc = function()  { return  { }; }
@@ -103,7 +86,7 @@ while (tok.length - 400000 <= -400) {
   tok += "aaaaaaaaaaaaaaaaaaaaa";
 }
 
-tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a; ").join('');
+tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
 console.log( 'length of the input:' , tok.length )  ;
 
 var run = 4; while ( run    ) {
