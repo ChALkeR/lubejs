@@ -1,14 +1,9 @@
 'use strict'
 
 var Parser = function (src) {
-  this.peek = 0;
-  this.n = 0;
   this.src = src;
-  this.col = 0;
   this.c = 0;
-  this.li = 1;
   this.lttype= "";
-  this.ltcontents = "" ;
   this.prec = 0 ;
 };
 var lp = Parser.prototype;
@@ -16,7 +11,6 @@ lp.next = function () {
   this.skipS();
   if (this.c >= this.src.length) {
       this. lttype =  'eof' ;
-      this.ltcontents=  '<<EOF>>';
       return ;
   }
   var c = this.c,
@@ -28,20 +22,17 @@ lp.next = function () {
       c++ ;
       this.prec = 0xAD;
       this.lttype = 'op';
-      this.ltcontents = '-';
       this.c = c;
       break;
     case 59:
       this.c = c;
       this.lttype = ';';
-      this.ltcontents = ';';
       this.c++;
       break;
     default:
       this.c++;
       this.lttype= 'Identifier';
   }
-  this.col += ( this.c - start );
 };
 lp.skipS = function() {
      var c = this.c,
@@ -58,7 +49,6 @@ lp.skipS = function() {
             flag = false;
        }
      } 
-  this.col += c - start;
   this.c = c ;
 };
 lp . loc      = function()  { return  { }; }
