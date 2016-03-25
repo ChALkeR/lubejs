@@ -67,11 +67,6 @@ lp.skipS = function() {
 lp . loc      = function()  { return  { }; }
 lp . loc = function()  { return  { }; }
 lp . loc    = function(l) { return  { }; }
-lp.parseProgram = function () {
-  this.next() ;
-  this.blck() ;
-  this.next()
-};
 lp.blck = function () { // blck ([]stmt)
   var stmts = [], stmt;
   while (stmt = this.parseStatement( false )) stmts.push(stmt);
@@ -159,7 +154,10 @@ while (tok.length - 400000 <= -400) {
 console.log( 'length of the input:' , tok.length )  ;
 
 var run = 10; while ( run    ) {
-   console.log(run ) ;
-   new Parser((tok)).parseProgram() ;
-   run -- ; 
+  console.log(run ) ;
+  var parser = new Parser(tok);
+  parser.next() ;
+  parser.blck() ;
+  parser.next()
+  run--;
 }
