@@ -87,7 +87,7 @@ lp.parseStatement = function ( nullNo       ) {
     return ;
   }
   if (this.foundStmt) { this.foundStmt = false; return head; } 
-  head = this .parseNonSeqExpr(head, 0, 0 ) ;
+  head = this .parseNonSeqExpr(head) ;
   head = { 
     type : 'ExpressionStatement', 
     expression : head,
@@ -97,10 +97,9 @@ lp.parseStatement = function ( nullNo       ) {
   };
   return head  ;
 };
-lp.parseNonSeqExpr = function (head, breakIfLessThanThis , cFlags_For ) {
+lp.parseNonSeqExpr = function(head) {
   var n ;
   var _b = null  , _e = null  ; 
-  var hasPrefixOrPostfix = false, prec, precOrAssocDistance;
   while (!false) {
     switch (this.lttype) {
       case '-' :
@@ -109,12 +108,10 @@ lp.parseNonSeqExpr = function (head, breakIfLessThanThis , cFlags_For ) {
      default:
         return head;
     }
-    precOrAssocDistance = prec - breakIfLessThanThis;
-    if (precOrAssocDistance != 0 ? precOrAssocDistance < 0 : (prec & 1)) return head;
-    this.next   () ;
-    n = (this.parseNonSeqExpr(this.parseExprHead(),prec, cFlags_For ))   ;
+    this.next() ;
+    n = (this.parseNonSeqExpr(this.parseExprHead()))   ;
     head =  {
-        type: (prec==0x09 || prec == 0x0B ) ? 'LogicalExpression' : 'BinaryExpression' , 
+        type: 'BinaryExpression',
    operator : '-',
       start : head.start ,
         end : n.end ,
