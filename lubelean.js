@@ -90,7 +90,7 @@ lp.parseStatement = function ( nullNo       ) {
   head = this .parseNonSeqExpr(head, 0, 0 ) ;
   head = { 
     type : 'ExpressionStatement', 
-    expression : core( head ) , 
+    expression : head,
     start : head.start ,
     end : head.end ,
     loc : { start : head.loc.start, end : head.loc.end }
@@ -119,8 +119,8 @@ lp.parseNonSeqExpr = function (head, breakIfLessThanThis , cFlags_For ) {
       start : head.start ,
         end : n.end ,
       loc   : {    start : head.loc.start , end : n.loc.end   }  , 
-     left   : core(head) ,
-    right   : core(n) ,
+     left   : head,
+    right   : n,
    }  ;
  }
 };
@@ -142,7 +142,6 @@ lp.id = function () {
    this.next   () ;
    return e ; 
 };
-var core = function(n ) { return ( ( n . type == 'paren' ? n.expr : n )) ; } 
 
 var tok = "";
 while (tok.length - 400000 <= -400) {
