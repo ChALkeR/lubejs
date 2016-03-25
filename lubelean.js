@@ -12,24 +12,8 @@ lp.next = function () {
       this. lttype =  'eof' ;
       return ;
   }
-  var c = this.c,
-      l = this.src,
-      peek = this.src.charCodeAt(this.c);
-  switch (peek) {
-    case 45:
-      c++ ;
-      this.lttype = 'op';
-      this.c = c;
-      break;
-    case 59:
-      this.c = c;
-      this.lttype = ';';
-      this.c++;
-      break;
-    default:
-      this.c++;
-      this.lttype= 'Identifier';
-  }
+  this.lttype = this.src[this.c];
+  this.c++;
 };
 lp.skipS = function() {
      var c = this.c,
@@ -64,7 +48,7 @@ lp.parseStatement = function ( nullNo       ) {
                end : this.c };
        this.next   () ;
        return l;
-    case 'Identifier': break;
+    case 'a': break;
     default: return;
   }
   var head = this.id();
@@ -102,7 +86,7 @@ lp.parseNonSeqExpr = function(head) {
  }
 };
 lp.id = function () {
-   var e = {  type   : 'Identifier' ,
+   var e = {  type   : 'a' ,
              value   : null,
             start    : this.c0,
                end   : this.c , 
@@ -119,7 +103,7 @@ while (tok.length - 400000 <= -400) {
   tok += "aaaaaaaaaaaaaaaaaaaaa";
 }
 
-tok = "n" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a; ").join('');
+tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a; ").join('');
 console.log( 'length of the input:' , tok.length )  ;
 
 var run = 4; while ( run    ) {
