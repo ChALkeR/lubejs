@@ -77,42 +77,7 @@ lp.skipS = function() {
 };
 lp . loc      = function()  { return  { }; }
 lp . loc = function()  { return  { }; }
-lp . loc    = function(l) { return  { }; }  
-lp . numstr    =   function () {
-  var n = {
-    type : 'Literal',
-   value : null, 
-   start : this.c0,
-     end : this.c,
-   loc : { start : this.loc() , end    : this.loc() } ,
-   contents : this.ltcontents
-  };
-  this.next   () ;
-  return n   ;
-};
-lp.lit = function(_v) { 
-  var n = {
-    type : 'Literal',
-   value : _v ,
-   start : this.c0,
-     end : this.c,
-   loc : { start : this.loc(),
-     end : this.loc() } ,
-   contents : this.ltcontents
-  };
-  this.next   () ;
-  return n   ;
-};      
-lp.tok = function() {
- return {
-      type : this.lttype,
-  contents : this.ltcontents,
-     start : this.c - this.ltcontents.length,
-       end : this.c,
-     loc : { start : this.loc (this.ltcontents.length),
-               end : this.loc   ()   }
- };   
-}
+lp . loc    = function(l) { return  { }; }
 lp.parseProgram = function () {
   this.next() ;
   this.blck() ;
