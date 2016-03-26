@@ -92,12 +92,7 @@ Parser.prototype.id = function () {
   };
 };
 
-var tok = "";
-while (tok.length <= 399600) {
-  tok += "aaaaaaaaaaaaaaaaaaaaa";
-}
-
-tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
+var tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
 console.log('length of the input:', tok.length);
 
 for (var run = 4; run > 0; run--) {
