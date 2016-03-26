@@ -32,24 +32,8 @@ Parser.prototype.parseStatement = function () {
   };
 };
 Parser.prototype.parseNonSeqExpr = function () {
-  var head = this.id();
-  if (this.c < 22 && this.c % 2 === 0) {
-    this.c++;
-    head = {
-      type: 'foobar',
-      operator: '-',
-      start: null,
-      end: null,
-      loc: {},
-      left: head,
-      right: this.parseNonSeqExpr(),
-    };
-  }
-  return head;
-};
-Parser.prototype.id = function () {
   this.c++;
-  return {
+  var head = {
     type: 'a',
     value: null,
     end: null,
@@ -63,6 +47,19 @@ Parser.prototype.id = function () {
     contents: null,
     pDepth: 0,
   };
+  if (this.c < 22 && this.c % 2 === 0) {
+    this.c++;
+    head = {
+      type: 'foobar',
+      operator: '-',
+      start: null,
+      end: null,
+      loc: {},
+      left: head,
+      right: this.parseNonSeqExpr(),
+    };
+  }
+  return head;
 };
 
 var unused = Array(19029).fill('aaaaaaaaaaaaaaaaaaaaaa').join('');
