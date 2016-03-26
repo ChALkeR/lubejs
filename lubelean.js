@@ -20,15 +20,7 @@ Parser.prototype.blck = function () {
 Parser.prototype.parseStatement = function () {
   if (this.c === 22) {
     this.c = 1;
-    return {
-      type: 'foobar',
-      start: null,
-      loc: {
-        start: {},
-        end: {}
-      },
-      end: null
-    };
+    return {};
   }
   var head = this.parseNonSeqExpr();
   return {
