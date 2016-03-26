@@ -2,8 +2,8 @@
 
 var Parser = function (src) {
   this.src = src;
-  this.c = 0;
-  this.lttype = "";
+  this.c = 1;
+  this.lttype = 'a';
 };
 Parser.prototype.next = function () {
   this.lttype = this.src[this.c];
@@ -15,7 +15,6 @@ Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.blck = function () {
   var stmts = [], stmt = true;
-  this.next();
   while (stmt) {
     stmt = this.parseStatement();
     stmts.push(stmt);
