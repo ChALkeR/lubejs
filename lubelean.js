@@ -26,7 +26,7 @@ Parser.prototype.blck = function () {
   }
   return stmts;
 };
-Parser.prototype.parseStatement = function() {
+Parser.prototype.parseStatement = function () {
   var head;
   switch (this.lttype) {
     case ';':
@@ -41,7 +41,7 @@ Parser.prototype.parseStatement = function() {
         end: null
       };
     case 'a':
-      head = this.parseNonSeqExpr(this.id());
+      head = this.parseNonSeqExpr();
       return {
         type: 'foobar',
         expression: head,
@@ -54,7 +54,8 @@ Parser.prototype.parseStatement = function() {
       };
   }
 };
-Parser.prototype.parseNonSeqExpr = function(head) {
+Parser.prototype.parseNonSeqExpr = function () {
+  var head = this.id();
   while (!false) {
     switch (this.lttype) {
       case '-':
@@ -66,7 +67,7 @@ Parser.prototype.parseNonSeqExpr = function(head) {
           end: null,
           loc: {},
           left: head,
-          right: this.parseNonSeqExpr(this.id()),
+          right: this.parseNonSeqExpr(),
         };
         break;
       default:
