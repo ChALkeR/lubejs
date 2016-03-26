@@ -7,14 +7,14 @@ Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
-Parser.prototype.blck = function () {
+Parser.prototype.run = function () {
   var stmts = [];
   for (var i = 0; i < 38000; i++) {
     if (this.c === 22) {
       this.c = 1;
       continue;
     }
-    var head = this.parseNonSeqExpr();
+    var head = this.next();
     stmts.push({
       type: 'foobar',
       expression: head,
@@ -28,7 +28,7 @@ Parser.prototype.blck = function () {
   }
   return stmts;
 };
-Parser.prototype.parseNonSeqExpr = function () {
+Parser.prototype.next = function () {
   this.c++;
   var head = {
     type: 'a',
@@ -53,7 +53,7 @@ Parser.prototype.parseNonSeqExpr = function () {
       end: null,
       loc: {},
       left: head,
-      right: this.parseNonSeqExpr(),
+      right: this.next(),
     };
   }
   return head;
@@ -65,5 +65,5 @@ Parser.prototype.parseNonSeqExpr = function () {
 var unused = Array(40000).fill('aaaaaaaaaaaaaaaaaaaaaa').join('');
 
 for (var i = 0; i < 4; i++) {
-  new Parser().blck();
+  new Parser().run();
 }
