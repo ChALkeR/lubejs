@@ -56,10 +56,7 @@ Parser.prototype.parseStatement = function () {
 };
 Parser.prototype.parseNonSeqExpr = function () {
   var head = this.id();
-  while (!false) {
-    if (this.lttype !== '-') {
-      return head;
-    }
+  while (this.lttype === '-') {
     this.next();
     head = {
       type: 'foobar',
@@ -71,6 +68,7 @@ Parser.prototype.parseNonSeqExpr = function () {
       right: this.parseNonSeqExpr(),
     };
   }
+  return head;
 };
 Parser.prototype.id = function () {
   this.next();
