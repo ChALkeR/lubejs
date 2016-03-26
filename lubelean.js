@@ -23,27 +23,26 @@ lp.blck = function () {
   while (stmt = this.parseStatement(false)) {
     stmts.push(stmt);
   }
-  return (stmts);
+  return stmts;
 };
 lp.parseStatement = function (nullNo) {
-  var head, l;
+  var head;
   switch (this.lttype) {
     case ';':
-      l  =  {
+      this.next();
+      return {
         type: 'EmptyStatement',
-        start: this.c - 1,
+        start: null,
         loc: {
           start: {},
           end: {}
         },
-        end: this.c
+        end: null
       };
-      this.next();
-      return l;
     case 'a':
       head = this.id();
       head = this.parseNonSeqExpr(head);
-      head = {
+      return {
         type: 'ExpressionStatement',
         expression: head,
         start: head.start,
@@ -53,30 +52,29 @@ lp.parseStatement = function (nullNo) {
           end: head.loc.end
         }
       };
-      return head;
   }
 };
 lp.parseNonSeqExpr = function(head) {
-  var n, _b = null, _e = null;
+  var n;
   while (!false) {
     switch (this.lttype) {
       case '-':
       case 'op':
+        this.next();
+        n = this.parseNonSeqExpr(this.id());
+        head = {
+          type: 'BinaryExpression',
+          operator: '-',
+          start: null,
+          end: n.end ,
+          loc: {},
+          left: head,
+          right: n,
+        };
         break;
       default:
         return head;
     }
-    this.next();
-    n = this.parseNonSeqExpr(this.id());
-    head = {
-      type: 'BinaryExpression',
-      operator: '-',
-      start: null,
-      end: n.end ,
-      loc: {},
-      left: head,
-      right: n,
-    };
   }
 };
 lp.id = function () {
