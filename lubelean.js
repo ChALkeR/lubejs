@@ -1,7 +1,7 @@
 'use strict';
 
-var Parser = function (src) {
-  this.src = src;
+var Parser = function () {
+  this.src = 'a-a-a-a-a-a-a-a-a-a-a;a';
   this.c = 0;
   this.lttype = 'a';
 };
@@ -14,10 +14,9 @@ Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.blck = function () {
-  var stmts = [], stmt = true;
-  while (stmt) {
-    stmt = this.parseStatement();
-    stmts.push(stmt);
+  var stmts = [];
+  for (var i = 0; i < 38000; i++) {
+    stmts.push(this.parseStatement());
   }
   return stmts;
 };
@@ -28,7 +27,8 @@ Parser.prototype.parseStatement = function () {
   }
   switch (this.lttype) {
     case ';':
-      this.next();
+      this.lttype = 'a';
+      this.c = 1;
       return {
         type: 'foobar',
         start: null,
@@ -89,5 +89,5 @@ Parser.prototype.id = function () {
 var tok = Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
 for (var run = 4; run > 0; run--) {
   console.log(run);
-  new Parser(tok).blck();
+  new Parser().blck();
 }
