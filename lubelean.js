@@ -1,12 +1,9 @@
 'use strict';
 
 var Parser = function () {
-  this.src = 'a-a-a-a-a-a-a-a-a-a-a;a';
   this.c = 0;
-  this.lttype = 'a';
 };
 Parser.prototype.next = function () {
-  this.lttype = this.src[this.c];
   this.c++;
 };
 Parser.prototype.loc = function () { return {}; }
@@ -21,40 +18,33 @@ Parser.prototype.blck = function () {
   return stmts;
 };
 Parser.prototype.parseStatement = function () {
-  var head;
-  if (this.c >= this.src.length) {
-     return;
+  if (this.c === 22) {
+    this.c = 1;
+    return {
+      type: 'foobar',
+      start: null,
+      loc: {
+        start: {},
+        end: {}
+      },
+      end: null
+    };
   }
-  switch (this.lttype) {
-    case ';':
-      this.lttype = 'a';
-      this.c = 1;
-      return {
-        type: 'foobar',
-        start: null,
-        loc: {
-          start: {},
-          end: {}
-        },
-        end: null
-      };
-    case 'a':
-      head = this.parseNonSeqExpr();
-      return {
-        type: 'foobar',
-        expression: head,
-        start: head.start,
-        end: head.end,
-        loc: {
-          start: head.loc.start,
-          end: head.loc.end
-        }
-      };
-  }
+  var head = this.parseNonSeqExpr();
+  return {
+    type: 'foobar',
+    expression: head,
+    start: head.start,
+    end: head.end,
+    loc: {
+      start: head.loc.start,
+      end: head.loc.end
+    }
+  };
 };
 Parser.prototype.parseNonSeqExpr = function () {
   var head = this.id();
-  if (this.lttype === '-') {
+  if (this.c < 22 && this.c % 2 === 0) {
     this.next();
     head = {
       type: 'foobar',
