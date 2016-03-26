@@ -3,9 +3,6 @@
 var Parser = function () {
   this.c = 0;
 };
-Parser.prototype.next = function () {
-  this.c++;
-};
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
@@ -37,7 +34,7 @@ Parser.prototype.parseStatement = function () {
 Parser.prototype.parseNonSeqExpr = function () {
   var head = this.id();
   if (this.c < 22 && this.c % 2 === 0) {
-    this.next();
+    this.c++;
     head = {
       type: 'foobar',
       operator: '-',
@@ -51,7 +48,7 @@ Parser.prototype.parseNonSeqExpr = function () {
   return head;
 };
 Parser.prototype.id = function () {
-  this.next();
+  this.c++;
   return {
     type: 'a',
     value: null,
