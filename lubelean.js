@@ -59,8 +59,7 @@ Parser.prototype.parseNonSeqExpr = function () {
   return head;
 };
 
-var unused = Array(19029).fill('aaaaaaaaaaaaaaaaaaaaaa').join('');
-for (var run = 4; run > 0; run--) {
-  console.log(run);
+var unused = Array(40000).fill('aaaaaaaaaaaaaaaaaaaaaa').join('');
+for (var i = 0; i < 4; i++) {
   new Parser().blck();
 }
