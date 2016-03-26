@@ -13,10 +13,10 @@ Parser.prototype.next = function () {
   this.lttype = this.src[this.c];
   this.c++;
 };
-Parser.prototype.loc = function() { return {}; }
-Parser.prototype.loc = function() { return {}; }
-Parser.prototype.loc = function() { return {}; }
-Parser.prototype.loc = function() { return {}; }
+Parser.prototype.loc = function () { return {}; }
+Parser.prototype.loc = function () { return {}; }
+Parser.prototype.loc = function () { return {}; }
+Parser.prototype.loc = function () { return {}; }
 Parser.prototype.blck = function () {
   var stmts = [], stmt;
   while (stmt = this.parseStatement(false)) {
@@ -30,7 +30,7 @@ Parser.prototype.parseStatement = function (nullNo) {
     case ';':
       this.next();
       return {
-        type: 'EmptyStatement',
+        type: 'foobar',
         start: null,
         loc: {
           start: {},
@@ -42,7 +42,7 @@ Parser.prototype.parseStatement = function (nullNo) {
       head = this.id();
       head = this.parseNonSeqExpr(head);
       return {
-        type: 'ExpressionStatement',
+        type: 'foobar',
         expression: head,
         start: head.start,
         end: head.end,
@@ -62,7 +62,7 @@ Parser.prototype.parseNonSeqExpr = function(head) {
         this.next();
         n = this.parseNonSeqExpr(this.id());
         head = {
-          type: 'BinaryExpression',
+          type: 'foobar',
           operator: '-',
           start: null,
           end: n.end ,
@@ -77,22 +77,22 @@ Parser.prototype.parseNonSeqExpr = function(head) {
   }
 };
 Parser.prototype.id = function () {
-   var e = {
-     type: 'a',
-     value: null,
-     end: null,
-     loc: {
-       start: {},
-       foo: {},
-       foo2: {},
-       foo3: {},
-       end: this.loc()
-     },
-     contents: null,
-     pDepth: 0,
-   };
-   this.next();
-   return e;
+  var e = {
+    type: 'a',
+    value: null,
+    end: null,
+    loc: {
+      start: {},
+      foo: {},
+      foo2: {},
+      foo3: {},
+      end: this.loc()
+    },
+    contents: null,
+    pDepth: 0,
+  };
+  this.next();
+  return e;
 };
 
 var tok = "";
