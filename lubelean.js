@@ -6,10 +6,6 @@ var Parser = function (src) {
   this.lttype = "";
 };
 Parser.prototype.next = function () {
-  if (this.c >= this.src.length) {
-      this.lttype = 'eof';
-      return;
-  }
   this.lttype = this.src[this.c];
   this.c++;
 };
@@ -28,6 +24,9 @@ Parser.prototype.blck = function () {
 };
 Parser.prototype.parseStatement = function () {
   var head;
+  if (this.c >= this.src.length) {
+     return;
+  }
   switch (this.lttype) {
     case ';':
       this.next();
