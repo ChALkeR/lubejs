@@ -19,6 +19,7 @@ Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.blck = function () {
   var stmts = [], stmt;
+  this.next();
   while (stmt = this.parseStatement(false)) {
     stmts.push(stmt);
   }
@@ -39,8 +40,7 @@ Parser.prototype.parseStatement = function (nullNo) {
         end: null
       };
     case 'a':
-      head = this.id();
-      head = this.parseNonSeqExpr(head);
+      head = this.parseNonSeqExpr(this.id());
       return {
         type: 'foobar',
         expression: head,
@@ -54,21 +54,19 @@ Parser.prototype.parseStatement = function (nullNo) {
   }
 };
 Parser.prototype.parseNonSeqExpr = function(head) {
-  var n;
   while (!false) {
     switch (this.lttype) {
       case '-':
       case 'op':
         this.next();
-        n = this.parseNonSeqExpr(this.id());
         head = {
           type: 'foobar',
           operator: '-',
           start: null,
-          end: n.end ,
+          end: null,
           loc: {},
           left: head,
-          right: n,
+          right: this.parseNonSeqExpr(this.id()),
         };
         break;
       default:
@@ -77,7 +75,8 @@ Parser.prototype.parseNonSeqExpr = function(head) {
   }
 };
 Parser.prototype.id = function () {
-  var e = {
+  this.next();
+  return {
     type: 'a',
     value: null,
     end: null,
@@ -91,8 +90,6 @@ Parser.prototype.id = function () {
     contents: null,
     pDepth: 0,
   };
-  this.next();
-  return e;
 };
 
 var tok = "";
@@ -105,7 +102,5 @@ console.log('length of the input:', tok.length);
 
 for (var run = 4; run > 0; run--) {
   console.log(run);
-  var parser = new Parser(tok);
-  parser.next();
-  parser.blck();
+  new Parser(tok).blck();
 }
