@@ -14,17 +14,19 @@ lp.next = function () {
   this.lttype = this.src[this.c];
   this.c++;
 };
-lp.loc = function()  { return { }; }
-lp.loc = function()  { return { }; }
-lp.loc = function()  { return { }; }
-lp.loc = function(l) { return { }; }
+lp.loc = function() { return {}; }
+lp.loc = function() { return {}; }
+lp.loc = function() { return {}; }
+lp.loc = function(l) { return {}; }
 lp.blck = function () {
   var stmts = [], stmt;
-  while (stmt = this.parseStatement( false )) stmts.push(stmt);
+  while (stmt = this.parseStatement(false)) {
+    stmts.push(stmt);
+  }
   return (stmts);
 };
 lp.parseStatement = function (nullNo) {
-  var head, l, e;
+  var head, l;
   switch (this.lttype) {
     case ';':
       l  =  {
@@ -39,23 +41,20 @@ lp.parseStatement = function (nullNo) {
       this.next();
       return l;
     case 'a':
-      break;
-    default:
-      return;
+      head = this.id();
+      head = this.parseNonSeqExpr(head);
+      head = {
+        type: 'ExpressionStatement',
+        expression: head,
+        start: head.start,
+        end: head.end,
+        loc: {
+          start: head.loc.start,
+          end: head.loc.end
+        }
+      };
+      return head;
   }
-  var head = this.id();
-  head = this.parseNonSeqExpr(head);
-  head = {
-    type: 'ExpressionStatement',
-    expression: head,
-    start: head.start,
-    end: head.end,
-    loc: {
-      start: head.loc.start,
-      end: head.loc.end
-    }
-  };
-  return head  ;
 };
 lp.parseNonSeqExpr = function(head) {
   var n, _b = null, _e = null;
@@ -63,8 +62,8 @@ lp.parseNonSeqExpr = function(head) {
     switch (this.lttype) {
       case '-':
       case 'op':
-         break;
-     default:
+        break;
+      default:
         return head;
     }
     this.next();
@@ -72,7 +71,7 @@ lp.parseNonSeqExpr = function(head) {
     head = {
       type: 'BinaryExpression',
       operator: '-',
-      start: head.start ,
+      start: null,
       end: n.end ,
       loc: {},
       left: head,
@@ -90,7 +89,7 @@ lp.id = function () {
        foo: {},
        foo2: {},
        foo3: {},
-       end : this.loc()
+       end: this.loc()
      },
      contents: null,
      pDepth: 0,
