@@ -84,10 +84,12 @@ lp.id = function () {
    var e = {
      type: 'a',
      value: null,
-     start: this.c0,
-     end: this.c,
+     end: null,
      loc: {
        start: {},
+       foo: {},
+       foo2: {},
+       foo3: {},
        end : this.loc()
      },
      contents: null,
