@@ -3,7 +3,7 @@
 var Parser = function (src) {
   this.src = src;
   this.c = 0;
-  this.lttype= "";
+  this.lttype = "";
 };
 var lp = Parser.prototype;
 lp.next = function () {
@@ -104,10 +104,9 @@ while (tok.length <= 399600) {
 tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
 console.log('length of the input:', tok.length);
 
-var run = 4; while ( run    ) {
-  console.log(run ) ;
+for (var run = 4; run > 0; run--) {
+  console.log(run);
   var parser = new Parser(tok);
-  parser.next() ;
-  parser.blck() ;
-  run--;
+  parser.next();
+  parser.blck();
 }
