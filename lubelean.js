@@ -61,6 +61,7 @@ Parser.prototype.next = function () {
 
 // It seems that this line just affects the timings.
 // You might need a different value on your machine.
+// Try 60000 for example, if 40000 does not work for you.
 // This could be replaced with setTimeout, but that one is also inexact.
 var unused = Array(40000).fill('aaaaaaaaaaaaaaaaaaaaaa').join('');
 
