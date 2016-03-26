@@ -86,7 +86,7 @@ Parser.prototype.id = function () {
   };
 };
 
-var tok = Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
+var unused = Array(19029).fill('aaaaaaaaaaaaaaaaaaaaaa').join('');
 for (var run = 4; run > 0; run--) {
   console.log(run);
   new Parser().blck();
