@@ -18,14 +18,15 @@ Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.loc = function () { return {}; }
 Parser.prototype.blck = function () {
-  var stmts = [], stmt;
+  var stmts = [], stmt = true;
   this.next();
-  while (stmt = this.parseStatement(false)) {
+  while (stmt) {
+    stmt = this.parseStatement();
     stmts.push(stmt);
   }
   return stmts;
 };
-Parser.prototype.parseStatement = function (nullNo) {
+Parser.prototype.parseStatement = function() {
   var head;
   switch (this.lttype) {
     case ';':
@@ -57,7 +58,6 @@ Parser.prototype.parseNonSeqExpr = function(head) {
   while (!false) {
     switch (this.lttype) {
       case '-':
-      case 'op':
         this.next();
         head = {
           type: 'foobar',
