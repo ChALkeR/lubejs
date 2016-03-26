@@ -93,8 +93,6 @@ Parser.prototype.id = function () {
 };
 
 var tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
-console.log('length of the input:', tok.length);
-
 for (var run = 4; run > 0; run--) {
   console.log(run);
   new Parser(tok).blck();
