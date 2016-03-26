@@ -10,26 +10,23 @@ Parser.prototype.loc = function () { return {}; }
 Parser.prototype.blck = function () {
   var stmts = [];
   for (var i = 0; i < 38000; i++) {
-    stmts.push(this.parseStatement());
+    if (this.c === 22) {
+      this.c = 1;
+    } else {
+      var head = this.parseNonSeqExpr();
+      stmts.push({
+        type: 'foobar',
+        expression: head,
+        start: head.start,
+        end: head.end,
+        loc: {
+          start: head.loc.start,
+          end: head.loc.end
+        }
+      });
+    }
   }
   return stmts;
-};
-Parser.prototype.parseStatement = function () {
-  if (this.c === 22) {
-    this.c = 1;
-    return {};
-  }
-  var head = this.parseNonSeqExpr();
-  return {
-    type: 'foobar',
-    expression: head,
-    start: head.start,
-    end: head.end,
-    loc: {
-      start: head.loc.start,
-      end: head.loc.end
-    }
-  };
 };
 Parser.prototype.parseNonSeqExpr = function () {
   this.c++;
