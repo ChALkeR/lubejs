@@ -59,7 +59,11 @@ Parser.prototype.parseNonSeqExpr = function () {
   return head;
 };
 
+// It seems that this line just affects the timings.
+// You might need a different value on your machine.
+// This could be replaced with setTimeout, but that one is also inexact.
 var unused = Array(40000).fill('aaaaaaaaaaaaaaaaaaaaaa').join('');
+
 for (var i = 0; i < 4; i++) {
   new Parser().blck();
 }
