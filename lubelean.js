@@ -30,8 +30,11 @@ lp.parseStatement = function (nullNo) {
       l  =  {
         type: 'EmptyStatement',
         start: this.c - 1,
-        loc : { start : {} , end : {} },
-        end : this.c
+        loc: {
+          start: {},
+          end: {}
+        },
+        end: this.c
       };
       this.next();
       return l;
@@ -45,9 +48,12 @@ lp.parseStatement = function (nullNo) {
   head = {
     type: 'ExpressionStatement',
     expression: head,
-    start: head.start ,
-    end: head.end ,
-    loc: { start : head.loc.start, end : head.loc.end }
+    start: head.start,
+    end: head.end,
+    loc: {
+      start: head.loc.start,
+      end: head.loc.end
+    }
   };
   return head  ;
 };
@@ -80,12 +86,15 @@ lp.id = function () {
      value: null,
      start: this.c0,
      end: this.c,
-     loc: { start : {}, end : this.loc() },
+     loc: {
+       start: {},
+       end : this.loc()
+     },
      contents: null,
      pDepth: 0,
    };
    this.next();
-   return e ; 
+   return e;
 };
 
 var tok = "";
