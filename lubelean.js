@@ -57,22 +57,19 @@ Parser.prototype.parseStatement = function () {
 Parser.prototype.parseNonSeqExpr = function () {
   var head = this.id();
   while (!false) {
-    switch (this.lttype) {
-      case '-':
-        this.next();
-        head = {
-          type: 'foobar',
-          operator: '-',
-          start: null,
-          end: null,
-          loc: {},
-          left: head,
-          right: this.parseNonSeqExpr(),
-        };
-        break;
-      default:
-        return head;
+    if (this.lttype !== '-') {
+      return head;
     }
+    this.next();
+    head = {
+      type: 'foobar',
+      operator: '-',
+      start: null,
+      end: null,
+      loc: {},
+      left: head,
+      right: this.parseNonSeqExpr(),
+    };
   }
 };
 Parser.prototype.id = function () {
