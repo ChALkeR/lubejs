@@ -2,7 +2,7 @@
 
 var Parser = function (src) {
   this.src = src;
-  this.c = 1;
+  this.c = 0;
   this.lttype = 'a';
 };
 Parser.prototype.next = function () {
@@ -86,7 +86,7 @@ Parser.prototype.id = function () {
   };
 };
 
-var tok = "a" + Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
+var tok = Array(19029).fill("a-a-a-a-a-a-a-a-a-a-a;").join('');
 for (var run = 4; run > 0; run--) {
   console.log(run);
   new Parser(tok).blck();
