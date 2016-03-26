@@ -5,8 +5,7 @@ var Parser = function (src) {
   this.c = 0;
   this.lttype = "";
 };
-var lp = Parser.prototype;
-lp.next = function () {
+Parser.prototype.next = function () {
   if (this.c >= this.src.length) {
       this.lttype = 'eof';
       return;
@@ -14,18 +13,18 @@ lp.next = function () {
   this.lttype = this.src[this.c];
   this.c++;
 };
-lp.loc = function() { return {}; }
-lp.loc = function() { return {}; }
-lp.loc = function() { return {}; }
-lp.loc = function(l) { return {}; }
-lp.blck = function () {
+Parser.prototype.loc = function() { return {}; }
+Parser.prototype.loc = function() { return {}; }
+Parser.prototype.loc = function() { return {}; }
+Parser.prototype.loc = function() { return {}; }
+Parser.prototype.blck = function () {
   var stmts = [], stmt;
   while (stmt = this.parseStatement(false)) {
     stmts.push(stmt);
   }
   return stmts;
 };
-lp.parseStatement = function (nullNo) {
+Parser.prototype.parseStatement = function (nullNo) {
   var head;
   switch (this.lttype) {
     case ';':
@@ -54,7 +53,7 @@ lp.parseStatement = function (nullNo) {
       };
   }
 };
-lp.parseNonSeqExpr = function(head) {
+Parser.prototype.parseNonSeqExpr = function(head) {
   var n;
   while (!false) {
     switch (this.lttype) {
@@ -77,7 +76,7 @@ lp.parseNonSeqExpr = function(head) {
     }
   }
 };
-lp.id = function () {
+Parser.prototype.id = function () {
    var e = {
      type: 'a',
      value: null,
